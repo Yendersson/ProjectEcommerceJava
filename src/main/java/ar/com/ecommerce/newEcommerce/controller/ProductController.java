@@ -43,7 +43,7 @@ public class ProductController {
 	@PostMapping("api/product")
 	public Product postProduct(@RequestBody Product p) {
 		Product product = repo.save(p);
-		
+		System.out.println("POST REQUEST");
 		return product;
 	}
 	

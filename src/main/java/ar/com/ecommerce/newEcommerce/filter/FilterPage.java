@@ -18,7 +18,7 @@ public class FilterPage implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		log.info("Intercepcion en el filter");
 		
 		chain.doFilter(request, response);

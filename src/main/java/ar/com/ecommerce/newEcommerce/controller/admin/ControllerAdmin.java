@@ -38,24 +38,9 @@ public class ControllerAdmin {
 		return "index";
 	}
 	 
-	 @GetMapping("/admin/product/{id}")
-	public String productAdmin(@PathVariable Long id, Model model) {
-		model.addAttribute("product", repo.findById(id).get());
-		model.addAttribute("category", (Collection<Category>) repoC.findAll());
-		model.addAttribute("subcategory", (Collection<Subcategory>) repoS.findAll());
-		return "product";
-	}
-	 
-	 @GetMapping("/admin/product")
-	public String productListAdmin(Model model) {
+	 @GetMapping("/header")
+	public String getHeader() {
 		 
-		model.addAttribute("products", (Collection<Product>) repo.findAll());
-		return "product_list";
-	}
-	 
-	 @PostMapping("/admin/product")
-	public String postProductAdmin(@RequestBody Product p) {
-		System.out.println(p.getTitle());
-		return "product";
-	}
+		return "header";
+	}	
 }
