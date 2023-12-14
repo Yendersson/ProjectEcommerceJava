@@ -26,7 +26,6 @@ public class ProductController {
 		this.repo = repo;
 	}
 	
-	
 	@GetMapping("api/product")
 	public List<Product> findAll(){
 		return (List<Product>) repo.findAll();
@@ -46,7 +45,6 @@ public class ProductController {
 		System.out.println("POST REQUEST");
 		return product;
 	}
-	
 	
 	@PutMapping("api/product")
 	public Product putProduct(@RequestBody Product p) {

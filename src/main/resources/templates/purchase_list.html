@@ -12,31 +12,31 @@
                  <tr>
                  	<th> <input type="checkbox" name="all" onclick="checkAll(this)"> </th>
                  	<th>Cod</th>
-                     <th>Titulo</th>
-                     <th>Categoria</th>
-                     <th>SubCategoria</th>
-                     <th>Precio actual</th>
-                     <th>Precio unitario</th>
+                     <th>Usuario</th>
+                     <th>Fecha</th>
+                     <th>Precio total</th>
                      <th>IVA %</th>
+                     <th>Precio c/IVA</th>
+                     <th>status</th>
                  </tr>
              </thead>
                 <tbody>
-                    <tr th:each="p : ${products}" th:data-href="${p.id}" ondblclick="location.href=location.pathname+'/'+this.dataset.href">
+                    <tr th:each="p : ${Purchases}" th:data-href="${p.id}" ondblclick="location.href=location.pathname+'/'+this.dataset.href">
 						<td><input type="checkbox" name="product" th:value="${p.id}" th:data-id="${p.id}"></td>
 						<td th:text="${p.cod}"></td>
-                        <td th:text="${p.title}"></td>
-                        <td th:text="${p.category.title != null}? ${p.category.title} : ''"></td>
-                        <td th:text="${p.subCategory != null}? ${p.subCategory.title}  : ''"></td>
-                        <td th:text="${p.current_price}"></td>
-                        <td th:text="${p.unit_price}"></td>
-                        <td th:text="${p.iva_price}+'%'"></td>
+                        <td th:text="${p.user}"></td>
+                        <td th:text="${p.date}"></td>
+                        <td th:text="${p.amount}"></td>
+                        <td th:text="${p.amountIva}+'%'"></td>
+                        <td th:text="${p.amountTotal}"></td>
+                        <td th:text="${p.status}"></td>
                         <td> <a th:href="'/admin/product/'+ ${p.id}"><button class="btn btn-warning">Editar</button></a></td>
                         <td> <button class="btn btn-danger" onclick="deleteItem(this)" th:data-id="${p.id}">Eliminar</button></td>
                     </tr>
                 </tbody>
             </table>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-			<a href="/admin/product/0"><button class="btn btn-primary">Agregar</button></a>
+			<a href="/admin/purchase/0"><button class="btn btn-primary">Agregar</button></a>
 			<button class="btn btn-primary" onclick="getChecked()">Modificar</button>
 		</div>
 	</div>
