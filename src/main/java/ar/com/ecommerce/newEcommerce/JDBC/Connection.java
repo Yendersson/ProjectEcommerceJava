@@ -1,11 +1,9 @@
 package ar.com.ecommerce.newEcommerce.JDBC;
 
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Connection {
 	private final String url = "jdbc:mysql://localhost:3306/nc";
@@ -23,7 +21,7 @@ public class Connection {
 			
 			connect = DriverManager.getConnection(url, usuario, contraseña);
 			
-			ps = connect.prepareStatement("SELECT * FROM product");
+			ps = connect.prepareStatement("select product.*, category.title as categoria, subcategory.title as subcategoria from product inner join category on category.id = product.category INNER JOIN subcategory ON subcategory.id = product.subcategory;");
 			System.out.println(ps);
 			rs = ps.executeQuery();
 			System.out.println(rs);
@@ -40,8 +38,5 @@ public class Connection {
                 es.printStackTrace();
             }
 		}
-    	
 	}
-    
-    
 }

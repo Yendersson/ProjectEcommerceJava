@@ -9,7 +9,7 @@
 <header id="header"></header>
 <div class="container">
 	<form  th:action="@{/admin/product}" method="post" th:object=${product}>
-	
+		<input th:field=*{id} type="text" class="form-control"  name="id" aria-label="id" aria-describedby="basic-addon1" hidden="hidden">
 		<label for="cod" class="form-label">Codigo</label>
 		<div class="input-group mb-3">
 		  <input th:field=*{cod} type="text" class="form-control" placeholder="codigo" name="cod" aria-label="cod" aria-describedby="basic-addon1">

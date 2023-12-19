@@ -50,6 +50,7 @@ public class ProductAdminController {
 	
 	@PostMapping("/admin/product")
 	public String postProduct(Product product) {
+		System.out.println("ID: " +product.getId());
 		repo.save(product);
 		return  "redirect:/admin/product";
 	}

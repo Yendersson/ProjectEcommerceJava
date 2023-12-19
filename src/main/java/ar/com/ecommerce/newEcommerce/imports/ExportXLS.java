@@ -22,9 +22,7 @@ public class ExportXLS {
 	
 	public static void main(String[] args) {
 		ExportXLS xls = new ExportXLS();
-		
-		xls.importXLS();
-		
+		xls.exportXLS();
 	}
 	Workbook workbout;
 	Sheet sheet;
@@ -74,7 +72,6 @@ public class ExportXLS {
                 } else if (field instanceof Integer) {
                     cell.setCellValue((Integer) field);
                 }
-                // Puedes agregar más tipos de datos según sea necesario
             }
         }
 
@@ -108,8 +105,8 @@ public class ExportXLS {
 				Object info = conn.rs.getObject("info");
 				Object currentPrice = conn.rs.getString("current_price");
 				Object iva = conn.rs.getString("iva_price");
-				Object category = conn.rs.getString("category");
-				Object subcategory = conn.rs.getObject("subcategory");
+				Object category = conn.rs.getString("categoria");
+				Object subcategory = conn.rs.getString("subcategoria");
 				Object textSummary = conn.rs.getObject("text_summary");
 				
 				Object[] filas = {title, cod, description, info, currentPrice, iva, category, subcategory, textSummary};
