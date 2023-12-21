@@ -10,10 +10,14 @@
 <div class="container">
 	<form th:action="@{/admin/category}" method="post" th:object="${category}"> 
 		
-		<label for="title" class="form-label">Titulo</label>
 		  <input  type="text" th:field="*{id}" hidden="hidden">
+		<label for="title" class="form-label">Titulo</label>
 		<div class="input-group mb-3">
 		  <input  type="text" class="form-control" placeholder="title" name="title" aria-label="title" aria-describedby="basic-addon1" th:field="*{title}">
+		</div>
+		<label for="picture" class="form-label">imagen</label>
+		<div class="input-group mb-3">
+		  <input  type="text" class="form-control" placeholder="img" name="picture" aria-label="title" aria-describedby="basic-addon1" th:field="*{picture}">
 		</div>
 		
 		<button id="submit">submit</button>
