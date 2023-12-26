@@ -25,8 +25,8 @@
 						<td><input type="checkbox" name="product" th:value="${p.id}" th:data-id="${p.id}"></td>
 						<td th:text="${p.cod}"></td>
                         <td th:text="${p.title}"></td>
-                        <td th:text="${p.category.title != null}? ${p.category.title} : ''"></td>
-                        <td th:text="${p.subCategory != null}? ${p.subCategory.title}  : ''"></td>
+                        <td th:text="${p.category.title}"></td>
+                        <td th:text="${p.subCategory.title}"></td>
                         <td th:text="${p.current_price}"></td>
                         <td th:text="${p.unit_price}"></td>
                         <td th:text="${p.iva_price}+'%'"></td>

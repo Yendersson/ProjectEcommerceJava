@@ -11,20 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "subcategory")
 @Entity
-public class Subcategory {
+public class Subcategory extends SubcategoryAbstract{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
-	private String title;
-	
-	@JoinColumn(name = "category", referencedColumnName = "id")
-	@ManyToOne
-	private Category category;
 }

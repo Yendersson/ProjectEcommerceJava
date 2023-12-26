@@ -15,38 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "purchase")
 @Entity
-public class Purchase {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Purchase extends PurchaseAbstract{
 	
-	private String cod;
-	
-	@ManyToOne
-	@JoinColumn(name = "user", referencedColumnName = "id")
-	private User user;
-	
-	private String date;
-	
-	@ManyToMany
-	@JoinTable(name = "purchase_products",
-	      joinColumns = @JoinColumn(name = "purchase"),
-	      inverseJoinColumns = @JoinColumn(name = "products"))
-	private Collection<Product> products;
-	
-	private Double amount;
-	
-	private Double amountIva;
-	
-	private Double amountTotal;
-	
-	private String purchaseId;
-	
-	private String status;
 	
 }

@@ -8,7 +8,7 @@
 <body>
 <header id="header"></header>
 <div class="container">
-	<form  th:action="@{/admin/product}" method="post" th:object=${product}>
+	<form action="/admin/product" method="post" th:object=${product} enctype="multipart/form-data">
 		<input th:field=*{id} type="text" class="form-control"  name="id" aria-label="id" aria-describedby="basic-addon1" hidden="hidden">
 		<label for="cod" class="form-label">Codigo</label>
 		<div class="input-group mb-3">
@@ -23,6 +23,7 @@
 		<label for="picture" class="form-label">Imagen</label>
 		<div class="input-group mb-3">
 		  <input th:field=*{picture} type="text" class="form-control" placeholder="picture" name="picture" aria-label="picture" aria-describedby="basic-addon1">
+		  <input type="file" name="image"/>
 		</div>
 		
 		<label for="subtitle" class="form-label">SubTitulo</label>
