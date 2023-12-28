@@ -18,6 +18,11 @@
 			if (condition()) fethDelete(location.pathname + "/delete/"+e.dataset.id);
 		}
 		
+		function deleteItemInside(e, path) {			
+			const condition = () => confirm("Seguro que quieres borrar este item? "+ e.dataset.id);
+			if (condition()) fethDelete(`${location.host}/${path}/delete/${e.dataset.id}`);
+		}
+		
 		function getChecked(){
 			document.querySelectorAll("input").forEach(item => {
 				if (item.checked == true && item.dataset.id != null) console.log(item.dataset.id);

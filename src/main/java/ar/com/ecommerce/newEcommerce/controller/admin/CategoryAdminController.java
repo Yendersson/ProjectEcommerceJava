@@ -8,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import ar.com.ecommerce.newEcommerce.entities.Category;
 import ar.com.ecommerce.newEcommerce.entities.repository.CategoryRepository;
+import ar.com.ecommerce.newEcommerce.utils.Utils;
 
 @Controller
 public class CategoryAdminController {
@@ -22,8 +25,8 @@ public class CategoryAdminController {
 	}
 	
 	@PostMapping("/admin/category")
-	public String postCategory(Category cat) {
-		
+	public String postCategory(Category cat, @RequestParam("image") MultipartFile file) {
+		cat.setPicture(Utils.saveFile(file));
 		repo.save(cat);
 		
 		return "redirect:/admin/category";

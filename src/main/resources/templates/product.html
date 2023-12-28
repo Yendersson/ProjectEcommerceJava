@@ -21,6 +21,10 @@
 		</div>
 		
 		<label for="picture" class="form-label">Imagen</label>
+		<div style="width: 200px; height: 200px;">
+			<img width="100%" height="100%" style="object-fit:contain;" alt="" th:src="*{'/update/'+picture}">
+		
+		</div>
 		<div class="input-group mb-3">
 		  <input th:field=*{picture} type="text" class="form-control" placeholder="picture" name="picture" aria-label="picture" aria-describedby="basic-addon1">
 		  <input type="file" name="image"/>

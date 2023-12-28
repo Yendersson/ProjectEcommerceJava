@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+	<header id="header"></header>
+<div class="container">
+	<form action="/admin/banner" method="post" th:object=${banner} enctype="multipart/form-data">
+		<input th:field=*{id} type="text" class="form-control"  name="id" aria-label="id" aria-describedby="basic-addon1" hidden="hidden">
+		<label for="name" class="form-label">name</label>
+		<div class="input-group mb-3">
+		  <input th:field=*{name} type="text" class="form-control" placeholder="nombre" name="name" aria-label="name" aria-describedby="basic-addon1">
+		</div>
+		
+		<label for="picture" class="form-label">Imagen</label>
+		<div class="input-group mb-3" >
+			<div th:each="b, stat : *{images}">
+				<button class="btn btn-danger" onclick="deleteItemInside(this, 'admin/bannerImage')" th:data-id="${b.id}">Eliminar</button>
+				<div style="width: 200px; height: 200px;">
+					<img alt="" th:src="*{'/update/' + images[__${stat.index}__].url}" style="width: 100%; height: 100%; object-fit:contain;">
+				</div>
+				
+			  	<input th:field=*{images[__${stat.index}__]}  type="text" class="form-control" placeholder="picture" name="picture" aria-label="picture" aria-describedby="basic-addon1">
+			  	<input type="file" name="image"/>
+			</div>
+			<input type="file" name="files" multiple="multiple"/>
+		</div>
+		<button id="submit">submit</button>
+	</form>
+	
+	
+	
+</div>
+<script src="https://d34a9flj5lovc9.cloudfront.net/web/js/jquery-1.10.2.js.gz"></script>
+ <script src="/script.js"></script>	
+</body>
+</html>

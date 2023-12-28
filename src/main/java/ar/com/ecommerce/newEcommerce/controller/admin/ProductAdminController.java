@@ -57,9 +57,8 @@ public class ProductAdminController {
 	
 	@PostMapping("/admin/product")
 	public String postProduct(Product product, @RequestParam("image") MultipartFile file) {
-		System.out.println("ID: " +product.getId());
-		System.out.println("IMAGE: " +Utils.saveFile(file));
-		product.setPicture(Utils.saveFile(file));
+		if (file.getSize() != 0) product.setPicture(Utils.saveFile(file)); 
+		
 		repo.save(product);
 		return  "redirect:/admin/product";
 	}

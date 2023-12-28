@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import ar.com.ecommerce.newEcommerce.entities.Banner;
 import ar.com.ecommerce.newEcommerce.entities.Product;
+import ar.com.ecommerce.newEcommerce.entities.repository.BannerRepository;
 import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
 
 @RestController
@@ -24,8 +25,12 @@ public class ProductController {
 	@Autowired
 	private ProductRepository repo;
 	
-	public ProductController(ProductRepository repo) {
+	@Autowired
+	private BannerRepository repoBanner;
+	
+	public ProductController(ProductRepository repo, BannerRepository repoBanner) {
 		this.repo = repo;
+		this.repoBanner = repoBanner;
 	}
 	
 	@GetMapping("api/product")
@@ -61,6 +66,12 @@ public class ProductController {
 		repo.delete(p.get());
 		return p.get();
 	}
+	
+	
+	@GetMapping("/update/banner")
+    public List<Banner> getBanner() {
+    	return (List<Banner>) repoBanner.findAll();
+    }
 	
 	
 	
