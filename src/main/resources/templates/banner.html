@@ -8,7 +8,7 @@
 <body>
 	<header id="header"></header>
 <div class="container">
-	<form action="/admin/banner" method="post" th:object=${banner} enctype="multipart/form-data">
+	<form action="/admin/banner" id="objectForm" method="post" th:object=${banner} enctype="multipart/form-data">
 		<input th:field=*{id} type="text" class="form-control"  name="id" aria-label="id" aria-describedby="basic-addon1" hidden="hidden">
 		<label for="name" class="form-label">name</label>
 		<div class="input-group mb-3">

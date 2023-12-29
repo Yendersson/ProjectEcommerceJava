@@ -18,9 +18,10 @@
 			if (condition()) fethDelete(location.pathname + "/delete/"+e.dataset.id);
 		}
 		
-		function deleteItemInside(e, path) {			
+		function deleteItemInside(e, path) {	
 			const condition = () => confirm("Seguro que quieres borrar este item? "+ e.dataset.id);
-			if (condition()) fethDelete(`${location.host}/${path}/delete/${e.dataset.id}`);
+			document.querySelector("#objectForm").addEventListener("submit", e=>e.preventDefault());		
+			if (condition()) fethDelete(`${location.origin}/${path}/delete/${e.dataset.id}`);
 		}
 		
 		function getChecked(){
