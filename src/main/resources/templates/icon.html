@@ -8,7 +8,7 @@
 <body>
 	<header id="header"></header>
 <div class="container">
-	<form action="/admin/banner" id="objectForm" method="post" th:object=${banner} enctype="multipart/form-data">
+	<form action="/admin/icon" id="objectForm" method="post" th:object=${icon} enctype="multipart/form-data">
 		<input th:field=*{id} type="text" class="form-control"  name="id" aria-label="id" aria-describedby="basic-addon1" hidden="hidden">
 		<label for="name" class="form-label">name</label>
 		<div class="input-group mb-3">
@@ -17,13 +17,16 @@
 		
 		<label for="picture" class="form-label">Imagen</label>
 		<div class="input-group mb-3" >
-			<div th:each="b, stat : *{images}">
-				<button class="btn btn-danger" onclick="deleteItemInside(this, 'admin/bannerImage')" th:data-id="${b.id}">Eliminar</button>
+			<div th:each="b, stat : *{icons}">
+				<button class="btn btn-danger" onclick="deleteItemInside(this, 'admin/icons')" th:data-id="${b.id}">Eliminar</button>
 				<div style="width: 200px; height: 200px;">
-					<img alt="" th:src="*{'/update/' + images[__${stat.index}__].url}" style="width: 100%; height: 100%; object-fit:contain;">
+					<img alt="" th:src="*{'/update/' + icons[__${stat.index}__].image}" style="width: 100%; height: 100%; object-fit:contain;">
 				</div>
 				
-			  	<input th:field=*{images[__${stat.index}__]}  type="text" class="form-control" placeholder="picture" name="picture" aria-label="picture" aria-describedby="basic-addon1" hidden>
+			  	<input th:field=*{icons[__${stat.index}__]}  type="text" class="form-control" placeholder="picture" name="picture" aria-label="picture" aria-describedby="basic-addon1" hidden>
+			  	<input th:field=*{icons[__${stat.index}__].name}  type="text" class="form-control" placeholder="name" name="name" aria-label="name" aria-describedby="basic-addon1" >
+			  	<textarea th:field=*{icons[__${stat.index}__].description}  type="text" class="form-control" placeholder="Description" name="description" aria-label="description" aria-des/cribedby="basic-addon1">
+			  	</textarea>
 			</div>
 			<input type="file" name="files" multiple="multiple"/>
 		</div>

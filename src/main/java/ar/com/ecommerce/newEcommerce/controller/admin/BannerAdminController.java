@@ -52,6 +52,7 @@ public class BannerAdminController {
 
 		for (MultipartFile file : files) {
 			if (file.getSize() == 0) continue;
+			if (banner.getImages() == null) banner.setImages(new ArrayList<>());
 			BannerImage bannerImg = new BannerImage(); 
 			bannerImg.setUrl(Utils.saveFile(file));
 			banner.getImages().add(bannerImg);
