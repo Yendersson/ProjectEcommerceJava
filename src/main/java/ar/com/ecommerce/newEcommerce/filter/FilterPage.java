@@ -10,6 +10,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class FilterPage implements Filter{
 	
@@ -18,10 +21,20 @@ public class FilterPage implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-
-		log.info("Intercepcion en el filter");
 		
+		 HttpServletResponse resp = (HttpServletResponse) response;
+	        resp.setHeader("Access-Control-Allow-Origin", "*"); // Reemplaza con el dominio de tu aplicación React
+	        resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+	        resp.setHeader("Access-Control-Allow-Headers", "*");
+	        
 		chain.doFilter(request, response);
+		
+	/*	if (((HttpServletRequest)request).getHeader("Authorization") != null) {
+			chain.doFilter(request, response);	
+		} else {
+			request.getRequestDispatcher("authorization").forward(request, response);
+		}*/
+		
 		
 	}
 

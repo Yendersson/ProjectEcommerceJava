@@ -1,6 +1,7 @@
 package ar.com.ecommerce.newEcommerce.servlets;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -8,36 +9,69 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ar.com.ecommerce.newEcommerce.services.PurchaseServices;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+@WebServlet("/MpPayment")
 public class MpPayment extends HttpServlet{
 	
-	public static final String ACCESS_TOKEN = "TEST-5251091904289939-071618-e48978c9f57e7e9776be1dff7c114bb5-1228085268";//PaymentMethod.getDataPropertie("ACCESS_TOKEN"); 
+	public static final String ACCESS_TOKEN = "TEST-5251091904289939-071618-e48978c9f57e7e9776be1dff7c114bb5-1228085268";//PaymentMethod.getDataPropertie("ACCESS_TOKEN");
+	
+	@Autowired
+	private PurchaseServices service;
+	
+	public MpPayment(PurchaseServices service) {
+			this.service = service;
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PrintWriter out = resp.getWriter();
+		out.print("MPForm");
+		
+	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		PrintWriter out = resp.getWriter();
-		
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setHeader("Accept", "application/json");
+		resp.setHeader("Access-Control-Allow-Origin", "*");
+		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+		resp.setHeader("Access-Control-Allow-Headers", "*");
+
 		String body = req.getReader().readLine();
-		String transaction = postDataUrl("https://api.mercadopago.com/v1/payments", body); 
-		out.print(transaction);
+		System.out.println(body);
+		String transaction = postDataUrl("https://api.mercadopago.com/v1/payments", body);
 		
-		super.doPost(req, resp);
+		System.out.println(transaction);
+		resp.setStatus(201);
+		
+		resp.getWriter().write(transaction);		
 	}
 	
-	public static String getDataUrl(String url) throws IOException {
+	public String getDataUrl(String url) throws IOException {
 		return sendData(url, "GET", null);
 	}
 	
-	public static String postDataUrl(String url, String data) throws IOException {
+	public String postDataUrl(String url, String data) throws IOException {
 		return sendData(url, "POST", data);	
 	}
 	
-	public static String sendData(String url, String method, String data) throws IOException {
+	public String sendData(String url, String method, String data) throws IOException {
+		
+			ObjectMapper convertJson = new ObjectMapper();
+			JsonNode json;
 			
 			String returnData = null;
 			URL urlConnect = new URL(url);
@@ -68,7 +102,10 @@ public class MpPayment extends HttpServlet{
 					response.append(inputLine);
 				}
 				in.close();
-	
+				
+				service.buildPurchase(response.toString());
+				
+				
 				// print result
 				returnData = response.toString();
 			} else {
@@ -82,9 +119,9 @@ public class MpPayment extends HttpServlet{
 	            }
 	
 	            errorReader.close();
-				returnData = method + " " +errorResponse.toString();
+				returnData = errorResponse.toString();
 			}
-	
+			//System.out.println(returnData);
 			return returnData;
 			
 		}

@@ -17,6 +17,7 @@ import ar.com.ecommerce.newEcommerce.entities.Banner;
 import ar.com.ecommerce.newEcommerce.entities.Product;
 import ar.com.ecommerce.newEcommerce.entities.repository.BannerRepository;
 import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -34,7 +35,11 @@ public class ProductController {
 	}
 	
 	@GetMapping("api/product")
-	public List<Product> findAll(){
+	public List<Product> findAll(HttpServletRequest req){
+		System.out.println(req.getRemoteHost());
+		System.out.println(req.getHeader("User-Agent"));
+		
+		
 		return (List<Product>) repo.findAll();
 	}
 	
