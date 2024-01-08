@@ -8,70 +8,73 @@
 <body>
 <header id="header"></header>
 <div class="container">
-	<form  th:action="@{/admin/product}" method="post" th:object=${product}>
+	<form  th:action="@{/admin/purchase}" method="post" th:object=${purchase}>
 	
 		<label for="cod" class="form-label">Codigo</label>
 		<div class="input-group mb-3">
-		  <input th:field=*{cod} type="text" class="form-control" placeholder="codigo" name="cod" aria-label="cod" aria-describedby="basic-addon1">
+		  <input th:field=*{purchaseId} type="text" class="form-control" placeholder="codigo" name="cod" aria-label="cod" aria-describedby="basic-addon1">
 		</div>
 		
-		<label for="title" class="form-label">Titulo</label>
+		<label for="user" class="form-label">Usuario</label>
 		<div class="input-group mb-3">
-		  <input th:field=*{title} type="text" class="form-control" placeholder="title" name="title" aria-label="title" aria-describedby="basic-addon1">
+		  <input th:field=*{user.username} type="text" class="form-control" placeholder="user" name="user" aria-label="user" aria-describedby="basic-addon1">
 		</div>
 		
-		<label for="picture" class="form-label">Imagen</label>
+		<label for="date" class="form-label">Fecha</label>
 		<div class="input-group mb-3">
-		  <input th:field=*{picture} type="text" class="form-control" placeholder="picture" name="picture" aria-label="picture" aria-describedby="basic-addon1">
+		  <input th:field=*{date} type="text" class="form-control" placeholder="date" name="date" aria-label="date" aria-describedby="basic-addon1">
 		</div>
 		
-		<label for="subtitle" class="form-label">SubTitulo</label>
+		<label for="installments" class="form-label">installments</label>
 		<div class="input-group mb-3">
-		  <input th:field="*{subtitle}" type="text" class="form-control" placeholder="subtitle" name="subtitle" aria-label="subtitle" aria-describedby="basic-addon1">
-		</div>
-		
-		<label for="category" class="form-label">Categoria</label>
-		<div class="input-group mb-3">
-		  <select class="form-select form-control" name="category" aria-label="Default select example" th:field="*{category}">
-			  <option th:each="c : ${category}" th:value=" ${c.id}" th:text="${c.title}"></option>
-			</select>
-		</div>
-		
-		<label for="subcategory" class="form-label">SubCategoria</label>
-		<div class="input-group mb-3">
-		  <select class="form-select form-control" name="subCategory" aria-label="Default select example" th:field="*{subCategory}">
-				  <option th:each="s : ${subcategory}"  th:value="${s.id}" th:text="${s.title}"></option>				   
-			</select>
-		</div>
-		
-		<div class="input-group mb-3">
-		  <span class="input-group-text">$</span>
-		  <input th:field="*{unit_price}" type="text" class="form-control" name="unit_price" aria-label="Amount (to the nearest dollar)">
-		  <span class="input-group-text">.00</span>
-		  
-		  <span class="input-group-text">Total</span>
-		  <input th:field="*{current_price}" type="text" class="form-control" name="current_price" aria-label="Amount (to the nearest dollar)">
-		  <span class="input-group-text">.00</span>
-		  
-			<span class="input-group-text">TAX</span>
-		  <input th:field="*{iva_price}" type="text" class="form-control"  name="iva_price" aria-label="Amount (to the nearest dollar)">
-		  <span class="input-group-text">%</span>
+		  <input th:field="*{installments}" type="text" class="form-control" placeholder="installments" name="installments" aria-label="installments" aria-describedby="basic-addon1">
 		</div>
 		
 		<div class="input-group mb-3" >
-		  <span class="input-group-text">Descripcion</span>
-		  <textarea class="form-control" aria-label="With textarea" name="description" th:field="*{description}"></textarea>
+			<label>Products</label>
+			<div th:each="b, stat : *{purchaseProduct}">
+				<p th:text="*{purchaseProduct[__${stat.index}__].product.title}"></p>
+				<div style="width: 200px; height: 200px;">
+					<img alt="" th:src="*{'/update/' + purchaseProduct[__${stat.index}__].product.picture}" style="width: 100%; height: 100%; object-fit:contain;">
+				</div>
+			</div>
 		</div>
 		
 		<div class="input-group mb-3">
-		  <span class="input-group-text">Resumen</span>
-		  <textarea class="form-control" aria-label="With textarea" name="textSummary" th:field="*{textSummary}"></textarea>
+		  
+		  <span class="input-group-text">Total</span>
+		  <input th:field="*{amount}" type="text" class="form-control" name="amount" aria-label="Amount (to the nearest dollar)">
+		  <span class="input-group-text">.00</span>
+		  
+		  <span class="input-group-text">TAX</spa>
+		  <input th:field="*{amountIva}" type="text" class="form-control"  name="amountIva" aria-label="Amount (to the nearest dollar)">
+		  <span class="input-group-text">%</span>
+		  
+		  <span class="input-group-text">amountTotal</span>
+		  <input th:field="*{amountTotal}" type="text" class="form-control" name="amountTotal" aria-label="Amount (to the nearest dollar)">
+		  <span class="input-group-text">.00</span>
 		</div>
 		
+		<label for="paymentMethodId" class="form-label">paymentMethodId</label>
 		<div class="input-group mb-3">
-		  <span class="input-group-text">Info</span>
-		  <textarea class="form-control" aria-label="With textarea"  name="info" th:field="*{info}"></textarea>
+		  <input th:field=*{paymentMethodId} type="text" class="form-control" placeholder="paymentMethodId" name="paymentMethodId" aria-label="paymentMethodId" aria-describedby="basic-addon1">
 		</div>
+		
+		<label for="paymentTypeId" class="form-label">paymentTypeId</label>
+		<div class="input-group mb-3">
+		  <input th:field=*{paymentTypeId} type="text" class="form-control" placeholder="paymentTypeId" name="paymentTypeId" aria-label="paymentTypeId" aria-describedby="basic-addon1">
+		</div>
+		
+		<label for="status" class="form-label">status</label>
+		<div class="input-group mb-3">
+		  <input th:field=*{status} type="text" class="form-control" placeholder="status" name="status" aria-label="paymentTypeId" aria-describedby="basic-addon1">
+		</div>
+		
+		<label for="statusDetailed" class="form-label">statusDetailed</label>
+		<div class="input-group mb-3">
+		  <input th:field=*{statusDetailed} type="text" class="form-control" placeholder="statusDetailed" name="statusDetailed" aria-label="statusDetailed" aria-describedby="basic-addon1">
+		</div>
+		
 		<button id="submit">submit</button>
 	</form>
 </div>

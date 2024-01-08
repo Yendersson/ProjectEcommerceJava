@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,14 @@ public abstract class ProductAbstract {
 	private String picture;
 	
 	private String date;
+	
+	private Integer stock;
+	
+	@Transient
+	private String cssStyle;
+	
+	@Transient
+	private String cssClassStyle;
 	
 	@JoinColumn(name = "category", referencedColumnName = "id")
 	@ManyToOne

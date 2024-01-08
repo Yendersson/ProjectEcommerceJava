@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ar.com.ecommerce.newEcommerce.entities.Product;
 import ar.com.ecommerce.newEcommerce.entities.Purchase;
 import ar.com.ecommerce.newEcommerce.entities.PurchaseProduct;
 import ar.com.ecommerce.newEcommerce.entities.User;
@@ -38,7 +39,7 @@ public class PurchaseServices {
 	}
 	
 	@Transactional
-	public void buildPurchase(String jsonPurchase) {
+	public void buildPurchase(String jsonPurchase){
 		ObjectMapper convertJson = new ObjectMapper();
 		JsonNode json;
 		
@@ -64,8 +65,16 @@ public class PurchaseServices {
 			if (json.get("additional_info").get("items").isArray()) {
 				
 				for (JsonNode jsonIndex : json.get("additional_info").get("items")) {
+						Product product = repoProduct.findById(jsonIndex.get("id").asLong()).get();
+						if (product.getStock() < jsonIndex.get("quantity").asInt()) break;
+						
+						if (p.getStatus().equals("approved")) {
+							product.setStock(product.getStock() - jsonIndex.get("quantity").asInt());
+							repoProduct.save(product);
+						};
+						
 						PurchaseProduct purchaseProduct = new PurchaseProduct();
-						purchaseProduct.setProduct(repoProduct.findById(jsonIndex.get("id").asLong()).get());
+						purchaseProduct.setProduct(product);
 						purchaseProduct.setQuantity(jsonIndex.get("quantity").asInt());
 						p.getPurchaseProduct().add(purchaseProduct);
 				}

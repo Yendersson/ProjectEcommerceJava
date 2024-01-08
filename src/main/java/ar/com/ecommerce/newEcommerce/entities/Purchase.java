@@ -1,5 +1,7 @@
 package ar.com.ecommerce.newEcommerce.entities;
 
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 import jakarta.persistence.Entity;
@@ -19,5 +21,23 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Purchase extends PurchaseAbstract{
 	
+	@Override
+	public String getDate() {
+		DateTimeFormatter formatoDeseado = DateTimeFormatter.ofPattern("dd/MM/yyyy-HH:ss");
+		OffsetDateTime fecha = OffsetDateTime.parse(super.getDate());
+		
+		return fecha.format(formatoDeseado);
+	}
 	
+	@Override
+	public String getCssStyle() {
+		if(getStatus().equals("approved")) return "color:green";
+		return super.getCssStyle();
+	}
+	
+	@Override
+	public String getCssClass() {
+		if(getStatus().equals("approved")) return "approved";
+		return super.getCssClass();
+	}
 }

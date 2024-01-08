@@ -23,16 +23,16 @@ public class PurchaseAdminController {
 	
 	@GetMapping("/admin/purchase")
 	public String listPurchase(org.springframework.ui.Model model) {
-		model.addAttribute("Purchases", (Collection<Purchase>) repo.findAll());
+		model.addAttribute("Purchases", (Collection<Purchase>) repo.findAllOrderByDate());
 		return "purchase_list";
 	}
 	
-	@GetMapping("/admin/pruchase/{id}")
+	@GetMapping("/admin/purchase/{id}")
 	public String listPurchase(@PathVariable Long id, org.springframework.ui.Model model) {
 		Purchase Purchase = new Purchase();
 		if (id != 0) Purchase = repo.findById(id).get();
 
-		model.addAttribute("Purchase", Purchase);
+		model.addAttribute("purchase", Purchase);
 		return "purchase";
 	}
 	

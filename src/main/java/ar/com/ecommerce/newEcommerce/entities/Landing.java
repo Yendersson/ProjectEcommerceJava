@@ -12,35 +12,14 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
 
-@Data
+
 @Entity
 @Table(name = "landing")
-public class Landing {
+public class Landing extends LandingAbstract{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String name;
-	
-	private boolean active;
-	
-	private boolean showOngs;
-	
-	private boolean showPayments;
-	
-	@JoinColumn(name = "banner", referencedColumnName = "id")
-	@ManyToOne
-	private Banner banner;
-	
-	@JoinColumn(name = "icon", referencedColumnName = "id")
-	@ManyToOne
-	private Icon icon;
-	
-	@Transient
-	private List<Ong> ongs;
-	
-	@Transient
-	private List<PaymentMethods> payments;
-	
+	@Override
+	public String getCssClass() {
+		if(isActive()) return "approved";
+		return super.getCssClass();
+	}
 }

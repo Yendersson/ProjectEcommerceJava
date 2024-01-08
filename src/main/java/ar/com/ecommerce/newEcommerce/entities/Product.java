@@ -8,4 +8,12 @@ import jakarta.persistence.Table;
 @Entity
 public class Product extends ProductAbstract{
 
+	@Override
+	public String getCssStyle() {
+		System.out.println(getStock());
+		if (getStock() < 100) return "text-decoration: underline";
+		return super.getCssStyle();
+	}
+	
 }
+

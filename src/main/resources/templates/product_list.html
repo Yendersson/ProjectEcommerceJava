@@ -18,10 +18,11 @@
                      <th>Precio actual</th>
                      <th>Precio unitario</th>
                      <th>IVA %</th>
+                     <th>Stock</th>
                  </tr>
              </thead>
                 <tbody>
-                    <tr th:each="p : ${products}" th:data-href="${p.id}" ondblclick="location.href=location.pathname+'/'+this.dataset.href">
+                    <tr th:each="p : ${products}" th:data-href="${p.id}" th:style="${p.cssStyle}" ondblclick="location.href=location.pathname+'/'+this.dataset.href">
 						<td><input type="checkbox" name="product" th:value="${p.id}" th:data-id="${p.id}"></td>
 						<td th:text="${p.cod}"></td>
                         <td th:text="${p.title}"></td>
@@ -30,6 +31,7 @@
                         <td th:text="${p.current_price}"></td>
                         <td th:text="${p.unit_price}"></td>
                         <td th:text="${p.iva_price}+'%'"></td>
+                        <td th:text="${p.stock}"></td>
                         <td> <a th:href="'/admin/product/'+ ${p.id}"><button class="btn btn-warning">Editar</button></a></td>
                         <td> <button class="btn btn-danger" onclick="deleteItem(this)" th:data-id="${p.id}">Eliminar</button></td>
                     </tr>

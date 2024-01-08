@@ -12,19 +12,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Data
 @Entity
 @Table(name = "banner")
-public class Banner {
+public class Banner extends BannerAbstract{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String name;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "banner")
-	private List<BannerImage> images;
-
 }

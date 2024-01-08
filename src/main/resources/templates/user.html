@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<header id="header"></header>
+<div class="container">
+	<form action="/admin/user" method="post" th:object="${user}" enctype="multipart/form-data"> 
+		
+		  <input  type="text" th:field="*{id}" hidden="hidden">
+		<label for="title" class="form-label">Username</label>
+		<div class="input-group mb-3">
+		  <input  type="text" class="form-control" placeholder="username" name="username" aria-label="username" aria-describedby="basic-addon1" th:field="*{username}">
+		</div>
+		<label for="picture" class="form-label">Email</label>
+		<div class="input-group mb-3">
+		  <input  type="text" class="form-control" placeholder="email" name="email" aria-label="email" aria-describedby="basic-addon1" th:field="*{email}">
+		</div>
+		
+		<button id="submit">submit</button>
+	</form>
+</div>
+<script src="https://d34a9flj5lovc9.cloudfront.net/web/js/jquery-1.10.2.js.gz"></script>
+	<script>
+		window.addEventListener('load', _ => {
+			$('#header').load('/header'/*, setSwipperHistorial()*/);
+		});	
+		
+		/*const send = document.querySelector("#submit");
+		const form = document.querySelectorAll("#form input");
+		
+		send.addEventListener('click', (e) => {
+			e.preventDefault(e);
+			console.log(form);
+			
+		})*/
+		
+	</script>
+</body>
+</html>
