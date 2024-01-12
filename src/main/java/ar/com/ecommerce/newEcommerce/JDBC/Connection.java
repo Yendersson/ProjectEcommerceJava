@@ -21,10 +21,10 @@ public class Connection {
 			
 			connect = DriverManager.getConnection(url, usuario, contraseña);
 			
-			ps = connect.prepareStatement("select product.*, category.title as categoria, subcategory.title as subcategoria from product inner join category on category.id = product.category INNER JOIN subcategory ON subcategory.id = product.subcategory;");
-			System.out.println(ps);
-			rs = ps.executeQuery();
-			System.out.println(rs);
+			//ps = connect.prepareStatement("select product.*, category.title as categoria, subcategory.title as subcategoria from product inner join category on category.id = product.category INNER JOIN subcategory ON subcategory.id = product.subcategory;");
+			//System.out.println(ps);
+			//rs = ps.executeQuery();
+			//System.out.println(rs);
 			
 		} catch (Exception e) {
 			try {

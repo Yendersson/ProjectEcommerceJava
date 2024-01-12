@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class LandingAbstract {
+public abstract class LandingAbstract extends GlobalProperties{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +40,4 @@ public abstract class LandingAbstract {
 	
 	@Transient
 	private List<PaymentMethods> payments;
-	
-	@Transient
-	private String cssStyle;
-	
-	@Transient
-	private String cssClass;
 }

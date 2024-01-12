@@ -23,7 +23,9 @@ public class LandingAdminController {
 	
 	@Autowired
 	private LandingRepository repo;
+	@Autowired
 	private BannerRepository repoBanner;
+	@Autowired
 	private IconRepository repoIcon;
 	
 	public LandingAdminController(LandingRepository repo, BannerRepository repoBanner, IconRepository repoIcon ) {

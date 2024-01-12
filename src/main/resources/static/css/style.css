@@ -1,1 +1,5 @@
 .approved>td{background-color: #82E0AA!important;}
+.rejected>td{background-color: #F1948A!important;}
+.in_process>td{background-color: #F9E79F!important;}
+
+.no-active>td{background: #eee!important;}

@@ -19,8 +19,6 @@ import ar.com.ecommerce.newEcommerce.utils.Utils;
 @Controller
 public class UploadController {
 	
-	
-	
     @GetMapping("/update/{img}")
     public ResponseEntity<byte[]> getImage(@PathVariable String img) throws IOException {
     	
@@ -28,16 +26,12 @@ public class UploadController {
         String imagePath = Utils.projectPath()+"/files/images/" + img;
         System.out.println(img);
         Resource resource = new FileSystemResource(imagePath);
-
+       
         // Verifica si el recurso existe
         if (resource.exists()) {
-        	System.out.println("EXist");
             byte[] imageBytes = Files.readAllBytes(resource.getFile().toPath());
-
             return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imageBytes);
         } else {
-        	
-        	System.out.println("DONT EXist");
             // Maneja si la imagen no existe
             return ResponseEntity.notFound().build();
         }

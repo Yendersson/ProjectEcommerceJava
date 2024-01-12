@@ -25,7 +25,7 @@ public class Purchase extends PurchaseAbstract{
 	public String getDate() {
 		DateTimeFormatter formatoDeseado = DateTimeFormatter.ofPattern("dd/MM/yyyy-HH:ss");
 		OffsetDateTime fecha = OffsetDateTime.parse(super.getDate());
-		
+	
 		return fecha.format(formatoDeseado);
 	}
 	
@@ -37,7 +37,9 @@ public class Purchase extends PurchaseAbstract{
 	
 	@Override
 	public String getCssClass() {
-		if(getStatus().equals("approved")) return "approved";
+		//if(getStatus().equals("approved")) return "approved";
+		if(getStatus().equals("rejected")) return "rejected";
+		if(getStatus().equals("in_process")) return "in_process";
 		return super.getCssClass();
 	}
 }

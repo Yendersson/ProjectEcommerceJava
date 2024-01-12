@@ -27,10 +27,10 @@ public class BannerAdminController {
 	@Autowired
 	private BannerImageRepository repoImage;
 
-	public BannerAdminController(BannerRepository repo, BannerImageRepository repoImage) {
+	/*public BannerAdminController(BannerRepository repo, BannerImageRepository repoImage) {
 		this.repo = repo;
 		this.repoImage = repoImage;
-	}
+	}*/
 	
 	@GetMapping("/admin/banner")
 	public String getBanners(Model model){

@@ -94,11 +94,11 @@ public class ExportXLS {
 		List<Object[]> resultados = new ArrayList<>();
 		
 		try {
-			Object[] titles = {"Nombre", "Codigo", "Descripcion", "info", "Precio Actua", "IVA", "Categoria", "Subcategoria", "Resumen"};
+			Object[] titles = {"Nombre", "Codigo", "Descripcion", "info", "Precio Actua", "IVA", "Categoria", "Subcategoria", "Resumen", "Stock"};
 			resultados.add(titles);
 
 			while(conn.rs.next()) {
-				System.out.println(conn.rs.getString("current_price"));
+				
 				Object title = conn.rs.getObject("title");
 				Object cod = conn.rs.getObject("cod");
 				Object description = conn.rs.getObject("description");
@@ -108,8 +108,9 @@ public class ExportXLS {
 				Object category = conn.rs.getString("categoria");
 				Object subcategory = conn.rs.getString("subcategoria");
 				Object textSummary = conn.rs.getObject("text_summary");
+				Object stock = conn.rs.getObject("stock");
 				
-				Object[] filas = {title, cod, description, info, currentPrice, iva, category, subcategory, textSummary};
+				Object[] filas = {title, cod, description, info, currentPrice, iva, category, subcategory, textSummary, stock};
 				resultados.add(filas);
 			}
 			

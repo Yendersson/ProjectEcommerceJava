@@ -15,7 +15,7 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class PurchaseAbstract {
+public abstract class PurchaseAbstract extends GlobalProperties{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,14 +49,5 @@ public abstract class PurchaseAbstract {
 	
 	private String status;
 	
-	private String statusDetailed;
-	
-	@Transient
-	private String cssStyle;
-	
-	@Transient
-	private String cssClass;
-	
-	
-	
+	private String statusDetailed;	
 }

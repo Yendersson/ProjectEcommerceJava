@@ -35,11 +35,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("api/product")
-	public List<Product> findAll(HttpServletRequest req){
-		System.out.println(req.getRemoteHost());
-		System.out.println(req.getHeader("User-Agent"));
-		
-		
+	public List<Product> findAll(HttpServletRequest req){		
 		return (List<Product>) repo.findAll();
 	}
 	
@@ -54,14 +50,12 @@ public class ProductController {
 	@PostMapping("api/product")
 	public Product postProduct(@RequestBody Product p) {
 		Product product = repo.save(p);
-		System.out.println("POST REQUEST");
 		return product;
 	}
 	
 	@PutMapping("api/product")
 	public Product putProduct(@RequestBody Product p) {
 		Product product = repo.save(p);
-		
 		return product;
 	}
 	

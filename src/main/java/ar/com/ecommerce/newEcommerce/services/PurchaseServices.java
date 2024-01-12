@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ar.com.ecommerce.newEcommerce.entities.Email;
+import ar.com.ecommerce.newEcommerce.entities.EmailTemplate;
 import ar.com.ecommerce.newEcommerce.entities.Product;
 import ar.com.ecommerce.newEcommerce.entities.Purchase;
 import ar.com.ecommerce.newEcommerce.entities.PurchaseProduct;
@@ -21,7 +23,7 @@ import ar.com.ecommerce.newEcommerce.entities.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class PurchaseServices {
+public class PurchaseServices{
 	
 	@Autowired
 	private PurchaseRepository repo;
@@ -29,14 +31,12 @@ public class PurchaseServices {
 	private ProductRepository repoProduct;
 	@Autowired
 	private UserRepository repoUser;
+	@Autowired
+	private EmailServices service;
+	@Autowired
+	private EmailTemplateServices serviceTemplate;
 	
 	public PurchaseServices() {}
-	
-	public PurchaseServices(PurchaseRepository repo, ProductRepository repoProduct, UserRepository repoUser) {
-		this.repo = repo;
-		this.repoProduct = repoProduct;
-		this.repoUser = repoUser;
-	}
 	
 	@Transactional
 	public void buildPurchase(String jsonPurchase){
@@ -79,15 +79,39 @@ public class PurchaseServices {
 						p.getPurchaseProduct().add(purchaseProduct);
 				}
 			}
-			repo.save(p);
+			Purchase purchase = repo.save(p);
+			
+			buildTemplate(purchase);
 			
 		} catch (JsonMappingException e) {
-			
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public void buildTemplate(Purchase p) {
+		
+		EmailTemplate template = null;
+		Email email = new Email();
+		email.setHtml(false);
+		
+		if (p.getStatus().equals("approved")) {
+			
+			template = serviceTemplate.findTemplate("PA");
+			
+			if (template.getIsHtml()) email.setHtml(true);
+			
+			email.setSubject(template.getSubject().replaceAll("COD_ID", p.getPurchaseId()));
+			email.setRecipients(p.getUser().getEmail());
+			String productos = "";
+			
+			for (PurchaseProduct pr : p.getPurchaseProduct()) {
+				productos += pr.getProduct().getTitle() + "\n";
+			}
+			email.setMessage(template.getBody().replaceAll("PRODUCTS", productos));
+			email.setSend(true);
+		}
+		service.buildEmail(email);
+	}
 }

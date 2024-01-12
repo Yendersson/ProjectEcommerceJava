@@ -1,5 +1,7 @@
 package ar.com.ecommerce.newEcommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public abstract class ProductAbstract {
+public abstract class ProductAbstract extends GlobalProperties{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,12 +46,6 @@ public abstract class ProductAbstract {
 	private String date;
 	
 	private Integer stock;
-	
-	@Transient
-	private String cssStyle;
-	
-	@Transient
-	private String cssClassStyle;
 	
 	@JoinColumn(name = "category", referencedColumnName = "id")
 	@ManyToOne

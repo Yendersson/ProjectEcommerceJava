@@ -28,14 +28,16 @@ public class ProductAdminController {
 	
 	@Autowired
 	private ProductRepository repo;
+	@Autowired
 	private CategoryRepository repoC;
+	@Autowired
 	private SubcategoryRepository repoS;
 	
-	public ProductAdminController(ProductRepository repo, CategoryRepository repoC, SubcategoryRepository repoS) {
+	/*public ProductAdminController(ProductRepository repo, CategoryRepository repoC, SubcategoryRepository repoS) {
 		this.repo = repo;
 		this.repoC = repoC;
 		this.repoS = repoS;
-	}
+	}*/
 	
 	@GetMapping("/admin/product")
 	public String listProduct(org.springframework.ui.Model model) {

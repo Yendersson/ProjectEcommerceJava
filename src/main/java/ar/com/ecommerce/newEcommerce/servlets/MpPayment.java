@@ -29,9 +29,9 @@ public class MpPayment extends HttpServlet{
 	@Autowired
 	private PurchaseServices service;
 	
-	public MpPayment(PurchaseServices service) {
+	/*public MpPayment(PurchaseServices service) {
 			this.service = service;
-	}
+	}*/
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

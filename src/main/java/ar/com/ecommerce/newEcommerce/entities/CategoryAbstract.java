@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class CategoryAbstract {
+public abstract class CategoryAbstract extends GlobalProperties{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

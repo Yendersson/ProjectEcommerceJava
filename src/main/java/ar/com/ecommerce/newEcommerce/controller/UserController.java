@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.ecommerce.newEcommerce.entities.Purchase;
 import ar.com.ecommerce.newEcommerce.entities.User;
 import ar.com.ecommerce.newEcommerce.entities.repository.UserRepository;
 
+@RestController
 public class UserController {
 	
 	@Autowired
@@ -57,5 +60,11 @@ public class UserController {
 		Optional<User> p = repo.findById(id);
 		repo.delete(p.get());
 		return p.get();
+	}
+	
+	@GetMapping("api/user/{id}/purchase")
+	public List<Purchase> getUserPurchases(@PathVariable Long id){
+		User user = repo.findById(id).get();
+		return (List<Purchase>) repo.getUserPurchases(user);
 	}
 }
