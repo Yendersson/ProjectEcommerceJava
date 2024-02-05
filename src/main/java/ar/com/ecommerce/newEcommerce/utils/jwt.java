@@ -25,6 +25,21 @@ public class jwt {
         return token;
 	}
 	
+	public static String getIdFromToken(String token) {
+			String id = null;
+			try {
+				Claims claim = Jwts.parser()
+						.setSigningKey(secretKey)
+						.parseClaimsJws(token.replaceAll("\"", ""))
+						.getBody();
+				id = claim.get("id").toString();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			return id;
+			
+	}
+	
 	public static Boolean evaluateToken(String token) {
 			try {
 				Claims claim = Jwts.parser()

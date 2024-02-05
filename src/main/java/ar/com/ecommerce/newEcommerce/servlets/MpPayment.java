@@ -103,8 +103,7 @@ public class MpPayment extends HttpServlet{
 				}
 				in.close();
 				
-				service.buildPurchase(response.toString());
-				
+				service.store(response.toString());
 				
 				// print result
 				returnData = response.toString();

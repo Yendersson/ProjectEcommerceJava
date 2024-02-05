@@ -27,6 +27,8 @@ public abstract class LandingAbstract extends GlobalProperties{
 	
 	private boolean showPayments;
 	
+	private String url;
+	
 	@JoinColumn(name = "banner", referencedColumnName = "id")
 	@ManyToOne
 	private Banner banner;

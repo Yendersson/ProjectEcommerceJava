@@ -15,4 +15,11 @@ public class PurchaseServicesAbstract {
 	public Purchase store(Purchase p) {
 		return repo.save(p);
 	}
+	
+	@Transactional
+	public void delete(Purchase p) {
+		 repo.delete(p);
+	}
+	
+	
 }

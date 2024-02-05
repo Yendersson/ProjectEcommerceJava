@@ -1,4 +1,23 @@
-		window.addEventListener('load', _ => $('#header').load('/header'));		
+	
+window.addEventListener('load', () => {
+	overridesParams();
+	document.querySelectorAll("#sidebar ul li a").forEach(e => {
+		if (location.pathname.includes("/"+e.dataset.href)){
+			e.classList.toggle("active")
+		}
+	})
+	
+})		
+
+function overridesParams(){
+	const url = new URL(location.href);
+	const params = url.search.replaceAll("?","").split("&");
+ 	params.forEach(item => {
+		 const [key, value] = item.split("=");
+		 
+		 document.getElementById(key).value = value;
+	 })
+}
 		
 		function fethDelete(url){
 			fetch(url)

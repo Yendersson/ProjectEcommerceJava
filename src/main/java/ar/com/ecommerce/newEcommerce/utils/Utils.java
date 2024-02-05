@@ -50,6 +50,9 @@ public class Utils {
 		}
 		
 		return pathAbsolute;
-		
+	}
+	
+	public static int pagination(String num) {
+		return (Integer.parseInt(num) -1)*20;  
 	}
 }

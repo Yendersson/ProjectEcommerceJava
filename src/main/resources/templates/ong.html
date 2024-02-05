@@ -1,53 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Admin</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
-<header id="header"></header>
-<div class="container">
-	<form action="/admin/ong" method="post" th:object="${ong}" enctype="multipart/form-data"> 
-		
-		  <input  type="text" th:field="*{id}" hidden="hidden">
-		<label for="title" class="form-label">Nombre</label>
-		<div class="input-group mb-3">
-		  <input  type="text" class="form-control" placeholder="name" name="name" aria-label="name" aria-describedby="basic-addon1" th:field="*{name}">
-		</div>
-		<label for="logo" class="form-label">imagen</label>
-		<div class="input-group mb-3">
-		  <input  type="text" class="form-control" placeholder="img" name="logo" aria-label="logo" aria-describedby="basic-addon1" th:field="*{logo}">
-		  <input type="file" name="image"/>
-		</div>
-		<label for="about" class="form-label"></label>
-		<div class="input-group mb-3">
-		  <textarea  type="text" class="form-control" placeholder="about" name="about" aria-label="about" aria-describedby="basic-addon1" th:field="*{about}">
+<div id="root">
+
+	<div th:replace="sidebar :: div#sidebar"></div>
+
+	<div id="detail">
+		<form action="/admin/ong" method="post" th:object="${ong}" enctype="multipart/form-data">
+
+			<input type="text" th:field="*{id}" hidden="hidden">
+			<label for="title" class="form-label">Nombre</label>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="name" name="name" aria-label="name"
+					aria-describedby="basic-addon1" th:field="*{name}">
+			</div>
+			<label for="logo" class="form-label">imagen</label>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="img" name="logo" aria-label="logo"
+					aria-describedby="basic-addon1" th:field="*{logo}">
+				<input type="file" name="image" />
+			</div>
+			<label for="about" class="form-label"></label>
+			<div class="input-group mb-3">
+				<textarea type="text" class="form-control" placeholder="about" name="about" aria-label="about"
+					aria-describedby="basic-addon1" th:field="*{about}">
 		  </textarea>
-		</div>
-		<label for="url" class="form-label"></label>
-		<div class="input-group mb-3">
-		  <input  type="text" class="form-control" placeholder="url" name="url" aria-label="url" aria-describedby="basic-addon1" th:field="*{url}">
-		</div>
-		
-		<button id="submit">submit</button>
-	</form>
+			</div>
+			<label for="url" class="form-label"></label>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="url" name="url" aria-label="url"
+					aria-describedby="basic-addon1" th:field="*{url}">
+			</div>
+
+			<button id="submit">submit</button>
+		</form>
+	</div>
 </div>
 <script src="https://d34a9flj5lovc9.cloudfront.net/web/js/jquery-1.10.2.js.gz"></script>
-	<script>
-		window.addEventListener('load', _ => {
-			$('#header').load('/header'/*, setSwipperHistorial()*/);
-		});	
-		
-		/*const send = document.querySelector("#submit");
-		const form = document.querySelectorAll("#form input");
-		
-		send.addEventListener('click', (e) => {
-			e.preventDefault(e);
-			console.log(form);
-			
-		})*/
-		
-	</script>
+<script src="/script.js"></script>
 </body>
+
 </html>

@@ -28,48 +28,15 @@ public class AuthController {
 	@Autowired 
 	private UserServices service;
 	
-	public AuthController(UserRepository repo) {
-		this.repo = repo;
-	}
-	
-	/*@GetMapping("api/user")
-	public List<User> getAllUser(HttpSession session){		
-		return (List<User>) repo.findAll();
-	}*/
-	
 	@PostMapping("api/auth")
 	public Data authentication(@RequestBody Login login) {
-		System.out.println("procesando");
-		User  user = repo.getUserByEmail(login.getEmail());
-		Data data = new Data();
-		data.setError(true);
-		data.setMessage("El email ingresado no existe");
-		data.setData(null);
-		
-		if (user == null) return data;
-		
-		if (!user.getPassword().equals(login.getPassword()))  {
-			data.setMessage("La clave no coincide con el email agregado");
-			return data;
-		};
-		
-		data.setError(false);
-		data.setMessage("Inicio de session exitoso");
-		data.setData(jwt.generateToken(user));
-		
-		return data;
+		return service.authenticate(login);
 		
 	}
 	
 	@PostMapping("api/register")
 	public User register(@RequestBody User user) {
-		if (user.getId() != null) return null;
-		
-		User newUser = repo.save(user);
-		
-		if (repo.existsById(newUser.getId())) service.buildTemplate(newUser);
-		
-		return newUser;
+		return service.store(user);
 	}
 	
 	@PostMapping("api/logout")

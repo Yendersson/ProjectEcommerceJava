@@ -20,6 +20,7 @@ import ar.com.ecommerce.newEcommerce.entities.Subcategory;
 import ar.com.ecommerce.newEcommerce.entities.repository.CategoryRepository;
 import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
 import ar.com.ecommerce.newEcommerce.entities.repository.SubcategoryRepository;
+import ar.com.ecommerce.newEcommerce.services.ProductServices;
 import ar.com.ecommerce.newEcommerce.utils.Utils;
 import ch.qos.logback.core.model.Model;
 
@@ -27,30 +28,21 @@ import ch.qos.logback.core.model.Model;
 public class ProductAdminController {
 	
 	@Autowired
-	private ProductRepository repo;
+	private ProductServices service;
 	@Autowired
 	private CategoryRepository repoC;
 	@Autowired
 	private SubcategoryRepository repoS;
 	
-	/*public ProductAdminController(ProductRepository repo, CategoryRepository repoC, SubcategoryRepository repoS) {
-		this.repo = repo;
-		this.repoC = repoC;
-		this.repoS = repoS;
-	}*/
-	
 	@GetMapping("/admin/product")
 	public String listProduct(org.springframework.ui.Model model) {
-		model.addAttribute("products", (Collection<Product>) repo.findAll());
+		model.addAttribute("products", (Collection<Product>) service.findAll());
 		return "product_list";
 	}
 	
 	@GetMapping("/admin/product/{id}")
 	public String listProduct(@PathVariable Long id, org.springframework.ui.Model model) {
-		Product product = new Product();
-		if (id != 0) product = repo.findById(id).get();
-
-		model.addAttribute("product", product);
+		model.addAttribute("product", service.getOneProduct(id));
 		model.addAttribute("category", (Collection<Category>) repoC.findAll());
 		model.addAttribute("subcategory", (Collection<Subcategory>) repoS.findAll());
 		
@@ -61,15 +53,13 @@ public class ProductAdminController {
 	public String postProduct(Product product, @RequestParam("image") MultipartFile file) {
 		if (file.getSize() != 0) product.setPicture(Utils.saveFile(file)); 
 		System.out.println(product);
-		repo.save(product);
-		return  "redirect:/admin/product";
+		service.store(product);
+		return "redirect:/admin/product";
 	}
 	
 	@GetMapping("/admin/product/delete/{id}")
 	public String deleteProduct(@PathVariable Long id) {
-		Product p = repo.findById(id).get(); 
-		repo.delete(p);
-		
+		service.delete(id);
 		return "redirect:/admin/product";
 	}
 	

@@ -10,18 +10,21 @@ import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ProductServices {
+public class ProductServices extends ProductServicesAbstract{
 	
-	@Autowired
-	private ProductRepository repo;
-	
-	@Transactional
-	public Product store(Product p) {
-		return repo.save(p);
+
+	public Product getOneProduct(Long id) {
+		return repo.findById(id).get();
+	}	
+	public Product find(Long id) {
+		Product p = new Product();
+		if (id != 0) p = repo.findById(id).get();
+		return p;
 	}
 	
-	public Product find(Long id) {
-		return repo.findById(id).get();
+	public void delete(Long id) {
+		Product p = repo.findById(id).get();
+		delete(p);
 	}
 	
 	public List<Product> findAll(){

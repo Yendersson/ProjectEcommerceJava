@@ -20,10 +20,7 @@ public class UserAdminController {
 	
 	@Autowired
 	private UserRepository repo;
-	
-	public UserAdminController(UserRepository repo) {
-		this.repo = repo;
-	}
+
 	
 	@PostMapping("/admin/user")
 	public String postUser(User cat) {

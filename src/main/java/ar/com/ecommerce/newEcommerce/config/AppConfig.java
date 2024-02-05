@@ -21,8 +21,9 @@ public class AppConfig {
         FilterRegistrationBean<FilterPage> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new FilterPage());
         //registrationBean.addUrlPatterns("/admin/*"); // Define las URL a las que se aplicará el filtro
-        registrationBean.addUrlPatterns("/*"); 
-        //registrationBean.addUrlPatterns("/MpPayment"); 
+        registrationBean.addUrlPatterns("/api/purchase/*"); 
+        registrationBean.addUrlPatterns("/api/user/*"); 
+        registrationBean.addUrlPatterns("/MpPayment"); 
         return registrationBean;
     }
 }

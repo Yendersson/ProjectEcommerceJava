@@ -17,9 +17,12 @@ import lombok.Data;
 @Table(name = "landing")
 public class Landing extends LandingAbstract{
 	
+	
 	@Override
 	public String getCssClass() {
 		if(isActive()) return "approved";
 		return super.getCssClass();
 	}
+	
+	
 }

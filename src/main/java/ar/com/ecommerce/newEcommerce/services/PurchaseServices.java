@@ -1,7 +1,9 @@
 package ar.com.ecommerce.newEcommerce.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,17 @@ import ar.com.ecommerce.newEcommerce.entities.Product;
 import ar.com.ecommerce.newEcommerce.entities.Purchase;
 import ar.com.ecommerce.newEcommerce.entities.PurchaseProduct;
 import ar.com.ecommerce.newEcommerce.entities.User;
+import ar.com.ecommerce.newEcommerce.entities.repository.FilterEntity;
 import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
-import ar.com.ecommerce.newEcommerce.entities.repository.PurchaseRepository;
 import ar.com.ecommerce.newEcommerce.entities.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import ar.com.ecommerce.newEcommerce.utils.Utils;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 @Service
-public class PurchaseServices{
+public class PurchaseServices extends PurchaseServicesAbstract{
 	
-	@Autowired
-	private PurchaseRepository repo;
 	@Autowired
 	private ProductRepository repoProduct;
 	@Autowired
@@ -36,19 +39,66 @@ public class PurchaseServices{
 	@Autowired
 	private EmailTemplateServices serviceTemplate;
 	
-	public PurchaseServices() {}
+	@PersistenceContext
+	private EntityManager entityManager;
 	
-	@Transactional
-	public void buildPurchase(String jsonPurchase){
+	public PurchaseServices() {}
+
+	//Store by json
+	public Purchase store(String json) {
+		Purchase p = buildPurchase(json);
+		buildTemplate(p);
+		return store(p);
+	}
+	
+	/*public Collection<Purchase> filter() {
+		Query q = entityManager.createQuery("FROM Purchase p WHERE p.purchaseId = '1320504279'");
+		Collection<Purchase> purchases = (Collection<Purchase>) q.getResultList();
+		System.out.println(purchases);
+		return purchases;
+	}*/
+	
+	public Collection<Purchase> filter(Map<String, String> params){
+		//System.out.println(entityManager);
+		FilterEntity<Purchase> purchaseFilter = new FilterEntity<>(entityManager);
+		Collection<Purchase> purchases = purchaseFilter.itemsFiltered(params, Purchase.class.getSimpleName());
+		System.out.println(purchases);
+		return purchases; 
+	}
+	
+	public Purchase getOnePurchase(Long id) {
+		Purchase p = new Purchase();
+		if (id != 0) p = repo.findById(id).get();
+		return p;
+	}
+	
+	public Collection<Purchase> getAllPurchases(Map<String, String> params){
+		if (params.isEmpty() || (params.size() < 2 && params.get("page") != null)) {
+			if (params.get("page") == null || "1".equals(params.get("page"))) return repo.findAllOrderByDate(0); 
+			repo.count();
+			return repo.findAllOrderByDate(Utils.pagination(params.get("page")));
+			
+		} 
+		return filter(params);
+	}
+	
+	//Delete by ID
+	public void delete(Long id) {
+		Purchase p = repo.findById(id).get();
+		delete(p);
+	}
+	
+	//build json to object
+	public Purchase buildPurchase(String jsonPurchase){
 		ObjectMapper convertJson = new ObjectMapper();
 		JsonNode json;
+		Purchase p = new Purchase();
 		
 		try {
 			json = convertJson.readTree(jsonPurchase);
 			
 			User user = repoUser.findById(1L).get();
 			
-			Purchase p = new Purchase();
 			p.setPurchaseProduct(new ArrayList<>());
 			p.setPurchaseId(json.get("id").asText());
 			p.setAmountTotal(json.get("transaction_amount").asDouble());
@@ -79,17 +129,16 @@ public class PurchaseServices{
 						p.getPurchaseProduct().add(purchaseProduct);
 				}
 			}
-			Purchase purchase = repo.save(p);
-			
-			buildTemplate(purchase);
-			
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
+		} finally {
+			return p;
 		}
 	}
 	
+	//Sending template purchase email
 	public void buildTemplate(Purchase p) {
 		
 		EmailTemplate template = null;
