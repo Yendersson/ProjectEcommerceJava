@@ -33,6 +33,11 @@
     line-height: 1;
 }
 
+#sidebar form{
+    display: flex;
+    order: 2;
+}
+
 #sidebar > div {
     display: flex;
     align-items: center;

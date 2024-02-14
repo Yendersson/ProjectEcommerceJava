@@ -17,6 +17,7 @@ import ar.com.ecommerce.newEcommerce.utils.Utils;
 
 @Controller
 public class CategoryAdminController {
+	
 	@Autowired
 	private CategoryRepository repo;
 	

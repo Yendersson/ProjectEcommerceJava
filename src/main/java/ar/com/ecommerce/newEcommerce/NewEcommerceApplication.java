@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
-import ar.com.ecommerce.newEcommerce.utils.CmdProductXML;
 
 @SpringBootApplication
 @ServletComponentScan(basePackages = "ar.com.ecommerce.newEcommerce.servlets") 

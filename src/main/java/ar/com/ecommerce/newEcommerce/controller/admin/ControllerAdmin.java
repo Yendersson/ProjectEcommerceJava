@@ -38,9 +38,9 @@ public class ControllerAdmin {
 		return "index";
 	}
 	 
-	 @GetMapping("/header")
+	 /*@GetMapping("/header")
 	public String getHeader() {
 		 
 		return "header";
-	}	
+	}	*/
 }
