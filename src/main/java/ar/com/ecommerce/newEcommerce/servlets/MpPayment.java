@@ -24,6 +24,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/MpPayment")
 public class MpPayment extends HttpServlet{
 	
+	
+	
 	public static final String ACCESS_TOKEN = "TEST-5251091904289939-071618-e48978c9f57e7e9776be1dff7c114bb5-1228085268";//PaymentMethod.getDataPropertie("ACCESS_TOKEN");
 	
 	@Autowired

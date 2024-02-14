@@ -26,6 +26,7 @@ public abstract class JDBCService {
 			throw new RuntimeException("No se encuentra el driver SQL", e);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
-		} 
+		} finally {
+		}
 	}
 }

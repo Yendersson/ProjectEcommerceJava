@@ -18,6 +18,18 @@ function overridesParams(){
 		 document.getElementById(key).value = value;
 	 })
 }
+		function downloadExcel(url){
+			fetch(url)
+			.then(resp => resp.blob())
+			.then(blob => {
+					const uri = window.URL.createObjectURL(new Blob([blob]));
+                    const a = document.createElement('a');
+                    a.href = uri;
+                    a.download = url.split("/")[url.split("/").length -1 ]+'.xlsx';
+                    a.click();
+                    window.URL.revokeObjectURL(uri);
+			})
+		}
 		
 		function fethDelete(url){
 			fetch(url)
