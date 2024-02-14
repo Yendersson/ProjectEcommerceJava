@@ -21,7 +21,6 @@ public class FilterEntity<T> {
 	}
 	
 	public Collection<T> itemsFiltered(Map<String, String> params, String entity){
-		System.out.println(params);
 		String queryParams = "";
 		
 		for(String key : params.keySet()) {
@@ -29,7 +28,6 @@ public class FilterEntity<T> {
 				queryParams += "cast(p."+key+" as string) LIKE CONCAT(:"+key+",'%') AND ";
 			}
 		}
-		System.out.println("FROM " +entity+ " p WHERE "+queryParams+ " 1 = 1");
 		
 		
 		Query q = entityManager.createQuery("FROM " +entity+ " p WHERE "+queryParams+ " 1 = 1");

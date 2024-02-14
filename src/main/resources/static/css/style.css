@@ -96,7 +96,7 @@
     position: relative;
 }
 
-textarea, input, button {
+textarea, input, button, select {
     font-size: 1rem;
     font-family: inherit;
     border: none;
@@ -107,7 +107,6 @@ textarea, input, button {
     line-height: 1.5;
     margin: 0;
 }
-
 #detail {
     flex: 1;
     padding: 2rem 1rem;

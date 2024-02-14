@@ -51,15 +51,7 @@ public class PurchaseServices extends PurchaseServicesAbstract{
 		return store(p);
 	}
 	
-	/*public Collection<Purchase> filter() {
-		Query q = entityManager.createQuery("FROM Purchase p WHERE p.purchaseId = '1320504279'");
-		Collection<Purchase> purchases = (Collection<Purchase>) q.getResultList();
-		System.out.println(purchases);
-		return purchases;
-	}*/
-	
 	public Collection<Purchase> filter(Map<String, String> params){
-		//System.out.println(entityManager);
 		FilterEntity<Purchase> purchaseFilter = new FilterEntity<>(entityManager);
 		Collection<Purchase> purchases = purchaseFilter.itemsFiltered(params, Purchase.class.getSimpleName());
 		System.out.println(purchases);

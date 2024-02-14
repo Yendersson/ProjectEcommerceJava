@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<credentiales>
+	<usuario>yenderson</usuario>
+	<clave>123456yscsd</clave>
+	<videos proveedor="vimeo">
+		<video>Primera session</video>
+		<video>Segunda session</video>
+		<video>Tercera session</video>
+	</videos>
+</credentiales>

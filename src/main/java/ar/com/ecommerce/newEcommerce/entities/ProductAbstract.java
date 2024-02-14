@@ -2,6 +2,7 @@ package ar.com.ecommerce.newEcommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,6 +32,7 @@ public abstract class ProductAbstract extends GlobalProperties{
 	
 	private String textSummary;
 	
+	@Column(columnDefinition = "LONGTEXT")
 	private String description;
 	
 	private Double iva_price;

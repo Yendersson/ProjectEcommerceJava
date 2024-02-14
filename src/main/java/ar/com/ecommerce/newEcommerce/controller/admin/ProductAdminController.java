@@ -3,6 +3,7 @@ package ar.com.ecommerce.newEcommerce.controller.admin;
 import java.io.File;
 import java.net.http.HttpRequest;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,8 +36,11 @@ public class ProductAdminController {
 	private SubcategoryRepository repoS;
 	
 	@GetMapping("/admin/product")
-	public String listProduct(org.springframework.ui.Model model) {
-		model.addAttribute("products", (Collection<Product>) service.findAll());
+	public String listProduct(org.springframework.ui.Model model, @RequestParam Map<String, String> params) {
+		model.addAttribute("products", (Collection<Product>) service.getAllProducts(params));
+		model.addAttribute("page", params.get("page") != null? params.get("page"): 1);
+		model.addAttribute("category", (Collection<Category>) repoC.findAll());
+		model.addAttribute("subcategory", (Collection<Subcategory>) repoS.findAll());
 		return "product_list";
 	}
 	
@@ -52,7 +56,6 @@ public class ProductAdminController {
 	@PostMapping("/admin/product")
 	public String postProduct(Product product, @RequestParam("image") MultipartFile file) {
 		if (file.getSize() != 0) product.setPicture(Utils.saveFile(file)); 
-		System.out.println(product);
 		service.store(product);
 		return "redirect:/admin/product";
 	}
