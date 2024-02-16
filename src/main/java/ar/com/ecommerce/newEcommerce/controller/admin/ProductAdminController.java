@@ -24,6 +24,7 @@ import ar.com.ecommerce.newEcommerce.entities.repository.SubcategoryRepository;
 import ar.com.ecommerce.newEcommerce.services.ProductServices;
 import ar.com.ecommerce.newEcommerce.utils.Utils;
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ProductAdminController {
@@ -54,15 +55,15 @@ public class ProductAdminController {
 	}
 	
 	@PostMapping("/admin/product")
-	public String postProduct(Product product, @RequestParam("image") MultipartFile file) {
+	public String postProduct(Product product, @RequestParam("image") MultipartFile file, HttpSession session) {
 		if (file.getSize() != 0) product.setPicture(Utils.saveFile(file)); 
-		service.store(product);
+		service.store(product, session);
 		return "redirect:/admin/product";
 	}
 	
 	@GetMapping("/admin/product/delete/{id}")
-	public String deleteProduct(@PathVariable Long id) {
-		service.delete(id);
+	public String deleteProduct(@PathVariable Long id, HttpSession session) {
+		service.delete(id, session);
 		return "redirect:/admin/product";
 	}
 	

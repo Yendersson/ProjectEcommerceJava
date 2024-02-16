@@ -36,7 +36,6 @@ public class UserController {
 	
 	@GetMapping("api/user/{id}")
 	public User findOneById(@PathVariable Long id){
-		
 		Optional<User> p = repo.findById(id);
 		
 		return p.get();

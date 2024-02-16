@@ -20,7 +20,7 @@ public class AdminFilter implements Filter{
 			HttpServletResponse resp = (HttpServletResponse) response;
 			HttpSession session = req.getSession();
 			
-			System.out.println("SESSION: "+ session.getAttribute("user"));
+			//System.out.println("SESSION: "+ session.getAttribute("user"));
 			if (session.getAttribute("user") == null) {
 				req.getRequestDispatcher("/login").forward(request, response);
 			} else {

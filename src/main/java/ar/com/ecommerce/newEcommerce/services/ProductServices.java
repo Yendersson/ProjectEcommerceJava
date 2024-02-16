@@ -9,13 +9,31 @@ import org.springframework.stereotype.Service;
 
 import ar.com.ecommerce.newEcommerce.entities.Product;
 import ar.com.ecommerce.newEcommerce.entities.Purchase;
+import ar.com.ecommerce.newEcommerce.entities.User;
 import ar.com.ecommerce.newEcommerce.entities.repository.FilterEntity;
 import ar.com.ecommerce.newEcommerce.entities.repository.ProductRepository;
+import ar.com.ecommerce.newEcommerce.entities.repository.UserRepository;
 import ar.com.ecommerce.newEcommerce.utils.Utils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @Service
 public class ProductServices extends ProductServicesAbstract{
+	
+	@Autowired
+	UserRepository userDAO;
+	
+	public Product store(Product p, HttpSession session) {
+		if (session != null) {
+			Long id = Long.parseLong(session.getAttribute("user").toString());
+			User u = userDAO.findById(id).get();
+			if (u != null && u.getRole().equals("ADMIN")) {
+				store(p);				
+			}
+		}
+		return p;
+	}
 	
 	public Collection<Product> filter(Map<String, String> params){
 		FilterEntity<Product> productFilter = new FilterEntity<>(this.entityManager);
@@ -41,9 +59,15 @@ public class ProductServices extends ProductServicesAbstract{
 		return p;
 	}
 	
-	public void delete(Long id) {
+	public void delete(Long id, HttpSession session) {
 		Product p = repo.findById(id).get();
-		delete(p);
+		if (session != null) {
+			Long idUser = Long.parseLong(session.getAttribute("user").toString());
+			User u = userDAO.findById(idUser).get();
+			if  (u != null && u.getRole().equals("ADMIN")) {
+				delete(p);				
+			}
+		}
 	}
 	
 	public List<Product> findAll(){

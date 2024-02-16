@@ -21,6 +21,7 @@ public class LoginServices extends LoginServiceAbstract{
 		 if (!u.getPassword().equals(login.getPassword())) {
 			 return "Clave no coincide";
 		 }
+		 System.out.println("Exists");
 		 
 		 session.setAttribute("user", u.getId());
 		
